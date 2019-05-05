@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Unity.Entities;
 
 public class Unit : MonoBehaviour
 {
@@ -16,9 +17,13 @@ public class Unit : MonoBehaviour
 
     Path path;
 
+    public Transform[] locations;
+    public int locationIndex;
+
     void Start()
     {
-        GoRandomPlace();
+        target = locations[0].position;
+
         StartCoroutine(UpdatePath());
     }
 
@@ -35,10 +40,20 @@ public class Unit : MonoBehaviour
 
     public void GoRandomPlace()
     {
-        Vector3 newpos = new Vector3(Random.Range(-500, 500), 0, Random.Range(-500, 500));
-        target = newpos;
+        locationIndex++;
+        if (locationIndex >= locations.Length)
+        {
 
- 
+            locationIndex = 0;
+
+            
+        }
+        target = locations[locationIndex].position;
+        
+        // Vector3 newpos = new Vector3(Random.Range(-100 , 100), 0, Random.Range(-100, 100));
+        // target = newpos;
+
+
     }
 
     IEnumerator UpdatePath()
@@ -120,3 +135,4 @@ public class Unit : MonoBehaviour
         }
     }
 }
+
