@@ -3,40 +3,65 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// here is the class which handles all inventory stuff. it should be player agnoistic
+/// so npcs, chests, shops or whatever could use a similar / modifed version of this class
+/// </summary>
 public class Inventory : MonoBehaviour
 {
-    private Stats playerStats;
+    private Stats stats;
+
     public List<ItemSlot> itemSlots;
+
+    //set up in editor!
     public GameObject inventoryUI;
     public GameObject itemGrid;
-    public Image[] itemImages;
-    public TextMeshProUGUI[] itemText;
+
     public int MaxItemSlots;
     public int totalItemsStored;
-    public Sprite emptySlot;
+
+    //array of the images
+    private Image[] itemImages;
+    private TextMeshProUGUI[] itemText;
+
+    //how we should display empty inventory slots 
+    public Sprite emptySprite;
+    public string emptyString;
+
 
     public void Start()
     {
-        itemImages = itemGrid.GetComponentsInChildren<Image>();
-        itemText = itemGrid.GetComponentsInChildren<TextMeshProUGUI>();
-        itemSlots = new List<ItemSlot>();
-        playerStats = GetComponent<Stats>();
         totalItemsStored = 0;
-        foreach(TextMeshProUGUI text in itemText)
-        {
-            text.text = "Empty";
-        }
-        
+        itemSlots = new List<ItemSlot>();
+
         for (int i = 0; i < MaxItemSlots; i++)
         {
             itemSlots.Add(new ItemSlot(null, 0, false));
         }
+
+
+        itemImages = itemGrid.GetComponentsInChildren<Image>();
+        foreach (Image image in itemImages)
+        {
+            image.sprite = emptySprite;
+        }
+        itemText = itemGrid.GetComponentsInChildren<TextMeshProUGUI>();
+        foreach (TextMeshProUGUI text in itemText)
+        {
+            text.text = emptyString;
+        }
+
+        
+        stats = GetComponent<Stats>();     
         DisplayInventory();
+        inventoryUI.SetActive(false);
+
     }
 
+    //turn on and off inventory menu
     public void ToggleInventoryMenu()
     {
+        
         if (inventoryUI.activeSelf == false)
         {
             inventoryUI.SetActive(true);
@@ -45,8 +70,10 @@ public class Inventory : MonoBehaviour
         {
             inventoryUI.SetActive(false);
         }
-    }
 
+    }
+    
+    //gets called by the ui button on click method. FIXME later make this less dependent on editor
     public void SelectInventorySlot(string buttonIndex)
     {
         int selectedIndex = int.Parse(buttonIndex);
@@ -61,30 +88,33 @@ public class Inventory : MonoBehaviour
             {
                 case ItemType.Food:
                     Food foodItem = (Food)selectedItem;
-                    playerStats.RestoreStamina(foodItem.staminaRestore);
+                    stats.RestoreStamina(foodItem.staminaRestore);
                     RemoveItem(selectedItem);
                     break;
             }
         }
     }
-
+    
+    //JUST update the visuals of the inventory- dont implement any inventory management stuff here please future danny
     public void DisplayInventory()
     {
+       
         for (int i = 0; i < itemSlots.Count; i++)
         {
             if (itemSlots[i].filled)
             {
-                 itemImages[i].sprite = itemSlots[i].item.icon;
-                 itemText[i].text = itemSlots[i].item.title + "(" + itemSlots[i].quantity + ")";
-             
+                itemImages[i].sprite = itemSlots[i].item.icon;
+                itemText[i].text = itemSlots[i].item.title + "(" + itemSlots[i].quantity + ")";
+
             }
             else
             {
-                itemText[i].text = "Empty";
-                itemImages[i].sprite = emptySlot;
+                itemText[i].text = emptyString;
+                itemImages[i].sprite = emptySprite;
 
             }
         }
+        
     }
 
     public void AddItem(Item itemToAdd)
@@ -125,7 +155,6 @@ public class Inventory : MonoBehaviour
 
     public void RemoveItem(Item itemToRemove)
     {
-        //check we dont already have this item, if not, then add it, else increase the amount we have of it
         if (itemSlots.Count > 0)
         {
             for (int i = 0; i < itemSlots.Count; ++i)
@@ -152,7 +181,7 @@ public class Inventory : MonoBehaviour
     }
 }
 
-//this class handles the item slot - wish it could be a struct, but quantity has to be mutable, so :(
+//this class handles the item slot - wish it could be a struct, but quantity and filled have to be mutable, so :(
 public class ItemSlot
 {
     public Item item;
