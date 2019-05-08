@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     private Stats stats;
+    private Interaction interaction;
 
     public List<ItemSlot> itemSlots;
 
@@ -53,6 +54,7 @@ public class Inventory : MonoBehaviour
 
         
         stats = GetComponent<Stats>();     
+        interaction = GetComponent<Interaction>();     
         DisplayInventory();
         inventoryUI.SetActive(false);
 
@@ -91,7 +93,14 @@ public class Inventory : MonoBehaviour
                     stats.RestoreStamina(foodItem.staminaRestore);
                     RemoveItem(selectedItem);
                     break;
+
+                case ItemType.Weapon:
+                    Weapon weaponItem = (Weapon)selectedItem;
+                    interaction.equipedWeapon = weaponItem;
+
+                    break;
             }
+            
         }
     }
     
@@ -120,7 +129,7 @@ public class Inventory : MonoBehaviour
     public void AddItem(Item itemToAdd)
     {
         //check we dont already have this item, if not, then add it, else increase the amount we have of it
-    
+
         for (int i = 0; i < MaxItemSlots; ++i)
         {
 
@@ -133,9 +142,14 @@ public class Inventory : MonoBehaviour
                     DisplayInventory();
                     return;
                 }
-                    
+
             }
-            else
+        }
+        for (int i = 0; i < MaxItemSlots; ++i)
+        {
+
+
+            if (!itemSlots[i].filled)
             {
                 totalItemsStored += 1;
                 itemSlots[i].item = itemToAdd;

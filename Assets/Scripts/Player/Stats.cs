@@ -9,6 +9,8 @@ public class Stats : MonoBehaviour
     public float StaminaDecayRate;
     public bool canLoseStamina;
 
+    public effectType currentEffect;
+
 
     private void Update()
     {
@@ -21,6 +23,13 @@ public class Stats : MonoBehaviour
             }
           
         }
+
+        switch (currentEffect) {
+            case effectType.bleeding:
+
+                break;
+
+        }
     }
 
     public void RestoreStamina(float amount)
@@ -30,6 +39,16 @@ public class Stats : MonoBehaviour
         {
             Stamina = 100;
         }
+    }
+
+    public void DoDamage(int amount)
+    {
+        Health -= amount;
+        if (Health <= 100)
+        {
+            Destroy(gameObject);
+        }
+     
     }
 
 }
