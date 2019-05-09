@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   id: 0
-  title: 
+  title: coolSword
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 204ade3f0fa33e242a57c2beba51afbf, type: 3}
   type: 0
-  attackDamage: 0
+  attackDamage: 10
   whatItLooksLike: {fileID: 0}
+  effect:
+  - {fileID: 11400000, guid: ca1eaa2c67362234ca633cef26b51cc0, type: 2}
+  - {fileID: 11400000, guid: ca1eaa2c67362234ca633cef26b51cc0, type: 2}
+  - {fileID: 11400000, guid: ca1eaa2c67362234ca633cef26b51cc0, type: 2}
