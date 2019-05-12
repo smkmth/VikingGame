@@ -53,7 +53,7 @@ public class Interaction : MonoBehaviour
 
 
                 }
-                else if (hit.transform.gameObject.tag == "Friend")
+                else if (hit.transform.gameObject.tag == "NPC")
                 {
 
 

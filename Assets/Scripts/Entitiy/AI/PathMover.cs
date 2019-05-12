@@ -2,13 +2,15 @@
 using System.Collections;
 using Unity.Entities;
 
-public class Unit : MonoBehaviour
+public class PathMover : MonoBehaviour
 {
 
     const float minPathUpdateTime = .2f;
     const float pathUpdateMoveThreshold = .5f;
 
     public Vector3 target;
+    public Transform transformTarget;
+
     public float speed = 20;
     public float turnSpeed = 3;
     public float turnDst = 5;
@@ -17,13 +19,10 @@ public class Unit : MonoBehaviour
 
     Path path;
 
-    public Transform[] locations;
     public int locationIndex;
 
     void Start()
     {
-        target = locations[0].position;
-
         StartCoroutine(UpdatePath());
     }
 
@@ -38,21 +37,8 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void GoRandomPlace()
+    public void FinishedPath()
     {
-        locationIndex++;
-        if (locationIndex >= locations.Length)
-        {
-
-            locationIndex = 0;
-
-            
-        }
-        target = locations[locationIndex].position;
-        
-        // Vector3 newpos = new Vector3(Random.Range(-100 , 100), 0, Random.Range(-100, 100));
-        // target = newpos;
-
 
     }
 
@@ -95,7 +81,7 @@ public class Unit : MonoBehaviour
                 if (pathIndex == path.finishLineIndex)
                 {
                     followingPath = false;
-                    GoRandomPlace();
+                    //FinishedPath();
                     break;
                 }
                 else
@@ -113,7 +99,7 @@ public class Unit : MonoBehaviour
                     if (speedPercent < 0.01f)
                     {
                         followingPath = false;
-                        GoRandomPlace();
+                        //FinishedPath();
                     }
                 }
 
