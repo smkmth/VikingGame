@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Sword
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  id: 35
   title: coolSword
   description: 
   icon: {fileID: 21300000, guid: 204ade3f0fa33e242a57c2beba51afbf, type: 3}
   type: 0
   mesh: {fileID: -5495902117074765545, guid: dc1efd4ea34d210488bfbc253103dfab, type: 3}
   equipmentSlot: 4
-  attackDamage: 10
+  attackDamage: 30
   effect:
   - {fileID: 11400000, guid: ca1eaa2c67362234ca633cef26b51cc0, type: 2}
   - {fileID: 11400000, guid: ca1eaa2c67362234ca633cef26b51cc0, type: 2}

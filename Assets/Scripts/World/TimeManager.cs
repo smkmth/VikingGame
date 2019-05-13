@@ -11,11 +11,10 @@ public class OnJumpForwardInTime : UnityEvent<int> { }
 
 public class TimeManager : MonoBehaviour
 {
-
     public static TimeManager TimeManagerInstance = null;
     public const float    secondsInFullDay = 86400;
     public const float    secondsInAHour = 3600;
-
+    
     public float    currentTimeOfDay;
     public int      currentHour;
     public int      currentDay;
@@ -50,7 +49,7 @@ public class TimeManager : MonoBehaviour
     public void JumpForwardInTime(int hourToJumpTo)
     {
         currentTimeOfDay = ((hourToJumpTo / secondsInFullDay) * secondsInAHour);
-        currentDay++;
+  
         OnJumpForwardInTime.Invoke(hourToJumpTo);
     }
 
