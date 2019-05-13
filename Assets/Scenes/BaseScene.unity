@@ -2068,6 +2068,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC
       objectReference: {fileID: 0}
+    - target: {fileID: 6727801113588028514, guid: 3a0177321718bb745b365715e10d3af4,
+        type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
     - target: {fileID: 6727801113588028518, guid: 3a0177321718bb745b365715e10d3af4,
         type: 3}
       propertyPath: m_LocalPosition.x
