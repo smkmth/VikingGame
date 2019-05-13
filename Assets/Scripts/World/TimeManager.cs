@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+// Class declaration
+[System.Serializable]
+public class OnJumpForwardInTime : UnityEvent<int> { }
+
+
+
 public class TimeManager : MonoBehaviour
 {
+
+    public static TimeManager TimeManagerInstance = null;
     public const float    secondsInFullDay = 86400;
     public const float    secondsInAHour = 3600;
 
@@ -22,10 +30,29 @@ public class TimeManager : MonoBehaviour
     private int prvHour =200;
     public UnityEvent OnDayEnd;
     public UnityEvent OnHourEnd;
+    public OnJumpForwardInTime OnJumpForwardInTime;
 
     //86400  seconds in a day
     //3600 seconds in a hour
 
+    private void Awake()
+    {
+        if (TimeManagerInstance == null)
+        {
+            TimeManagerInstance = this;
+        }
+        else if (TimeManagerInstance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void JumpForwardInTime(int hourToJumpTo)
+    {
+        currentTimeOfDay = ((hourToJumpTo / secondsInFullDay) * secondsInAHour);
+        currentDay++;
+        OnJumpForwardInTime.Invoke(hourToJumpTo);
+    }
 
     // Update is called once per frame
     void Update()

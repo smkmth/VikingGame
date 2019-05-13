@@ -12,15 +12,9 @@ public class FreeRotation : MonoBehaviour
     public bool FreeLook;
 
     private float rot;
-    private Rigidbody rb;
+
     // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-
-
-    }
-
+ 
     // Update is called once per frame
     void Update()
     {
@@ -30,8 +24,8 @@ public class FreeRotation : MonoBehaviour
             {
                 rot = Mathf.Lerp(StartRotateSpeed, MaxRotateSpeed, Step * Time.deltaTime);
             }
+            transform.Rotate(0, rot * Input.GetAxis("Mouse X"), 0);
         }
 
-        transform.Rotate(0, rot * Input.GetAxis("Mouse X"), 0);
     }
 }

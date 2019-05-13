@@ -10,7 +10,10 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     private Stats stats;
+    private Stamina stamina;
+    private FreeRotation cameraControl;
     private Interaction interaction;
+    private EquipmentHolder equipmentHolder;
 
     public List<ItemSlot> itemSlots;
 
@@ -53,7 +56,10 @@ public class Inventory : MonoBehaviour
         }
 
         
+        equipmentHolder = GetComponent<EquipmentHolder>();
         stats = GetComponent<Stats>();     
+        stamina = GetComponent<Stamina>();     
+        cameraControl = GetComponent<FreeRotation>();     
         interaction = GetComponent<Interaction>();     
         DisplayInventory();
         inventoryUI.SetActive(false);
@@ -67,10 +73,20 @@ public class Inventory : MonoBehaviour
         if (inventoryUI.activeSelf == false)
         {
             inventoryUI.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
+            cameraControl.FreeLook = false;
+
         }
         else
         {
             inventoryUI.SetActive(false);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1;
+            cameraControl.FreeLook = true;
+
         }
 
     }
@@ -90,18 +106,46 @@ public class Inventory : MonoBehaviour
             {
                 case ItemType.Food:
                     Food foodItem = (Food)selectedItem;
-                    stats.RestoreStamina(foodItem.staminaRestore);
+                    stamina.RestoreStamina(foodItem.staminaRestore);
                     RemoveItem(selectedItem);
                     break;
 
                 case ItemType.Weapon:
                     Weapon weaponItem = (Weapon)selectedItem;
-                    interaction.equipedWeapon = weaponItem;
+                    if (itemSlots[selectedIndex].equiped)
+                    {
+                        equipmentHolder.equipedWeapon = null;
+                        itemSlots[selectedIndex].equiped = false;
 
+                    }
+                    else
+                    {
+                        equipmentHolder.equipedWeapon = weaponItem;
+                        itemSlots[selectedIndex].equiped = true;
+
+                    }
                     break;
+
+                case ItemType.Equipment:
+                    Equipment equipmentItem = (Equipment)selectedItem;
+                    if (!itemSlots[selectedIndex].equiped)
+                    {
+                        equipmentHolder.EquipItem(equipmentItem);
+                        itemSlots[selectedIndex].equiped = true;
+                    }
+                    else
+                    {
+                        equipmentHolder.UnEquipItem(equipmentItem);
+                        itemSlots[selectedIndex].equiped = false;
+                    }
+                    break;
+
+            
+
             }
             
         }
+        DisplayInventory();
     }
     
     //JUST update the visuals of the inventory- dont implement any inventory management stuff here please future danny
@@ -113,7 +157,32 @@ public class Inventory : MonoBehaviour
             if (itemSlots[i].filled)
             {
                 itemImages[i].sprite = itemSlots[i].item.icon;
-                itemText[i].text = itemSlots[i].item.title + "(" + itemSlots[i].quantity + ")";
+
+
+                if (itemSlots[i].equiped)
+                {
+                    var colors = itemImages[i].gameObject.GetComponent<Button>().colors;
+                    colors.normalColor = Color.red;
+                    colors.highlightedColor = Color.red;
+                    itemImages[i].gameObject.GetComponent<Button>().colors = colors;
+                    itemText[i].text = itemSlots[i].item.title + "(" + itemSlots[i].quantity + ")" + " Equipped ";
+                    itemImages[i].gameObject.GetComponent<Button>().enabled = false;
+                    itemImages[i].gameObject.GetComponent<Button>().enabled = true;
+
+                }
+                else
+                {
+                    var colors = itemImages[i].gameObject.GetComponent<Button>().colors;
+                    colors.normalColor = Color.white;
+                    colors.highlightedColor = Color.white;
+                    itemImages[i].gameObject.GetComponent<Button>().colors = colors;
+           
+                    itemImages[i].gameObject.GetComponent<Button>().enabled = false;
+                    itemImages[i].gameObject.GetComponent<Button>().enabled = true;
+                    itemText[i].text = itemSlots[i].item.title + "(" + itemSlots[i].quantity + ")";
+                }
+            
+                
 
             }
             else
@@ -201,6 +270,7 @@ public class ItemSlot
     public Item item;
     public int quantity;
     public bool filled;
+    public bool equiped =false;
 
     public ItemSlot(Item item, int quantity, bool filled)
     {

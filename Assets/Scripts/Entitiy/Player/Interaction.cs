@@ -8,12 +8,15 @@ public class Interaction : MonoBehaviour
     public LayerMask EnemyLayerMask;
     public float AttackDistance;
     private Inventory inventory;
-    public Weapon equipedWeapon;
+    public EquipmentHolder equipmentHolder;
 
 
     private void Start()
     {
         inventory = GetComponent<Inventory>();
+        equipmentHolder = GetComponent<EquipmentHolder>();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
     }
 
@@ -46,10 +49,16 @@ public class Interaction : MonoBehaviour
             {
                 if (hit.transform.gameObject.tag == "Enemy")
                 {
+                    if (equipmentHolder.equipedWeapon != null)
+                    {
+                        hit.transform.gameObject.GetComponent<Stats>().DoDamage(equipmentHolder.equipedWeapon.attackDamage);
 
-                    hit.transform.gameObject.GetComponent<Stats>().DoDamage(equipedWeapon.attackDamage);
-
-                    Debug.Log("ATTACK!");
+                        Debug.Log("ATTACK!");
+                    }
+                    else
+                    {
+                        Debug.Log("No Weapon Equiped");
+                    }
 
 
                 }

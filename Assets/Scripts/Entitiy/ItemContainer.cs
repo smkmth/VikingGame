@@ -3,22 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum ContainerType
 {
+    Pickup,
     Interact,
-    Pickup
+    Enemy,
 }
 public class ItemContainer : MonoBehaviour
 {
 
     public Item containedItem;
+    
     public ContainerType containerType;
 
+    public bool openable = true;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Player")
         {
-            other.gameObject.GetComponent<Inventory>().AddItem(containedItem);
-            Destroy(gameObject);
+            if (openable)
+            {
+                other.gameObject.GetComponent<Inventory>().AddItem(containedItem);
+                Destroy(gameObject);
+            }
         }
     }
 }

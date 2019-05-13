@@ -9,13 +9,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6727801113588028518}
-  - component: {fileID: 6727801113588028519}
   - component: {fileID: 6727801113588028512}
   - component: {fileID: 6727801113588028513}
+  - component: {fileID: 6727801113588028519}
   - component: {fileID: 1849634147}
+  - component: {fileID: 1849634148}
+  - component: {fileID: 1849634149}
   m_Layer: 11
   m_Name: Unit (2)
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,30 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6727801113588028519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6727801113588028514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 069e603fdff158d4cb25431629e021a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {x: 30, y: 0, z: 300}
-  speed: 20
-  turnSpeed: 3
-  turnDst: 5
-  stoppingDst: 10
-  repathRate: 0.3
-  locations:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  locationIndex: 0
 --- !u!33 &6727801113588028512
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -103,6 +81,26 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6727801113588028519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6727801113588028514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 069e603fdff158d4cb25431629e021a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {x: 30, y: 0, z: 300}
+  transformTarget: {fileID: 0}
+  speed: 20
+  turnSpeed: 5
+  turnDst: 2
+  stoppingDst: 10
+  repathRate: 0.3
+  locationIndex: 0
 --- !u!114 &1849634147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +113,109 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b1e7c1159838e499b94d5a42609626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHealth: 100
   Health: 100
-  Stamina: 0
-  StaminaDecayRate: 0
-  canLoseStamina: 0
+  startPos: {x: 0, y: 0, z: 0}
+  currentEffect: 0
+--- !u!136 &1849634148
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6727801113588028514}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1849634149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6727801113588028514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2405d260c0db6da42b8463f22cc12092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeSlots:
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 0
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 1
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 0
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 1
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 0
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 1
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 0
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 1
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 0
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 1
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 0
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 1
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 0
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 1
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 0
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 1
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 0
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 1
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 0
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 1
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 0
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 1
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 0
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 1
+  - TimeToTrigger: 0
+    placeToGo: {fileID: 0}
+    usingThisTimeslot: 0
