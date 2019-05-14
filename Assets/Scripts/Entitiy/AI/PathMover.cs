@@ -19,7 +19,6 @@ public class PathMover : MonoBehaviour
 
     Path path;
 
-    public int locationIndex;
 
     void Start()
     {

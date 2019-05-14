@@ -204,7 +204,7 @@ public class Inventory : MonoBehaviour
 
             if (itemSlots[i].filled)
             {
-                if (itemSlots[i].item.id == itemToAdd.id)
+                if (itemSlots[i].item.name == itemToAdd.name)
                 {
                     itemSlots[i].quantity += 1;
                     totalItemsStored += 1;
@@ -242,7 +242,7 @@ public class Inventory : MonoBehaviour
         {
             for (int i = 0; i < itemSlots.Count; ++i)
             {
-                if (itemSlots[i].item.id == itemToRemove.id)
+                if (itemSlots[i].item.name == itemToRemove.name)
                 {
                     itemSlots[i].quantity -= 1;
                     totalItemsStored -= 1;
