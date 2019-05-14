@@ -25,10 +25,8 @@ public class Interaction : MonoBehaviour
     public float Step;
     private float rot;
 
-    [HideInInspector]
-    public bool FreeLook;
-    [HideInInspector]
-    public bool FreeMove;
+    public bool FreeLook =true;
+    public bool FreeMove =true;
 
     public float MovementSpeed;
     public float DistanceToGround;
@@ -95,6 +93,7 @@ public class Interaction : MonoBehaviour
                 {
                     if (Input.GetAxis("Mouse X") != 0)
                     {
+                        Debug.Log("rot");
                         rot = Mathf.Lerp(StartRotateSpeed, MaxRotateSpeed, Step * Time.deltaTime);
                     }
                     transform.Rotate(0, rot * Input.GetAxis("Mouse X"), 0);

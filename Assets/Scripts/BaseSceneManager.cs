@@ -130,20 +130,7 @@ public class BaseSceneManager : MonoBehaviour
 
 
                 }
-                else
-                {
-                    if (playercam.playercamera == null)
-                    {
-
-                        Debug.LogWarning("Player has no camera set in the CameraControl script!");
-                    }
-                    if (playercam.Target == null)
-                    {
-
-                        Debug.LogWarning("Player cam has no target set in the camera control script. it needs to be set to the thing the camera is following (the player)");
-                    }
-
-                }
+               
             }
 
            
