@@ -146,36 +146,7 @@ public class BaseSceneManager : MonoBehaviour
                 }
             }
 
-            {
-                FreeRotation playercam = GameObject.FindObjectOfType<FreeRotation>();
-                if (!playercam)
-                {
-                    Debug.LogWarning("Player has no freeRotation script. It needs to be added to the player!");
-
-                }
-                else
-                {
-                    if (playercam.MaxRotateSpeed <= 0)
-                    {
-
-                        Debug.LogWarning("FreeRotation script maxrotatespeed is set to 0, you wont be able to rotate the camera!");
-
-                    }
-                    if (playercam.StartRotateSpeed <= 0)
-                    {
-
-                        Debug.LogWarning("FreeRotation script startrotatespeed is set to 0, you wont be able to rotate the camera!");
-
-                    }
-                    if (playercam.Step <= 0)
-                    {
-
-                        Debug.LogWarning("FreeRotation script step is set to 0, you wont be able to rotate the camera!");
-
-                    }
-
-                }
-            }
+           
         }
     }
 

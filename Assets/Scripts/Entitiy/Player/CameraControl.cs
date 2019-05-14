@@ -8,7 +8,7 @@ public class CameraControl : MonoBehaviour
     public Camera playercamera;
     public LayerMask LockOnLayerMask;
 
-    private FreeRotation freeRotation;
+    private Interaction freeRotation;
     private LockOn lockOn;
 
 
@@ -18,7 +18,7 @@ public class CameraControl : MonoBehaviour
     {
 
         lockOn = GetComponent<LockOn>();
-        freeRotation = GetComponent<FreeRotation>();
+        freeRotation = GetComponent<Interaction>();
     }
 
     // Update is called once per frame
@@ -48,7 +48,6 @@ public class CameraControl : MonoBehaviour
 
                     Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
 
-                    Debug.Log("this");
 
                 }
             }

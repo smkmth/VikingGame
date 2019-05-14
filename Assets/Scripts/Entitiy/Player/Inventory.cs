@@ -11,8 +11,8 @@ public class Inventory : MonoBehaviour
 {
     private Stats stats;
     private Stamina stamina;
-    private FreeRotation cameraControl;
     private Interaction interaction;
+
     private EquipmentHolder equipmentHolder;
 
     public List<ItemSlot> itemSlots;
@@ -59,7 +59,6 @@ public class Inventory : MonoBehaviour
         equipmentHolder = GetComponent<EquipmentHolder>();
         stats = GetComponent<Stats>();     
         stamina = GetComponent<Stamina>();     
-        cameraControl = GetComponent<FreeRotation>();     
         interaction = GetComponent<Interaction>();     
         DisplayInventory();
         inventoryUI.SetActive(false);
@@ -76,7 +75,7 @@ public class Inventory : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
-            cameraControl.FreeLook = false;
+            interaction.currentInteractionState = Interaction.interactionState.InventoryMode;
 
         }
         else
@@ -85,7 +84,8 @@ public class Inventory : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
-            cameraControl.FreeLook = true;
+            interaction.currentInteractionState = Interaction.interactionState.Normal;
+
 
         }
 
